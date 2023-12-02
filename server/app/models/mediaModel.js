@@ -3,10 +3,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const mediaSchema = new Schema({
-    title: {
+    filename: {
         type: String
     },
-    path: {
+    mimetype: {
+        type: String
+    },
+    name: {
         type: String
     }
 });

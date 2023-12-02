@@ -61,6 +61,7 @@ exports.login = async (req, res, next) => {
 
 exports.adminLogin = async (req, res, next) => {
     try {
+        console.log(req.body);
         const email = req.body.email;
         const password = req.body.password;
 

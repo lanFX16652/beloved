@@ -11,14 +11,16 @@ let storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage }).array("image")
+exports.upload = multer({ storage }).array("image")
 
-exports.uploadMiddleware = (req, res, next) => {
-    upload(req, res, (err) => {
-        if (err instanceof multer.MulterError) {
-            console.log(err);
-        } else if (err) {
-            console.log(err);
-        }
-    })
-}
+// exports.uploadMiddleware = (req, res, next) => {
+//     upload(req, res, (err) => {
+//         if (err instanceof multer.MulterError) {
+//             console.log(err);
+//         } else if (err) {
+//             console.log(err);
+//         }
+//     })
+
+//     next()
+// }

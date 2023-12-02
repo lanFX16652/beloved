@@ -1,4 +1,5 @@
 const multer = require("multer");
+const Media = require("../models/mediaModel")
 
 exports.imageUpload = async (req, res, next) => {
     const files = req.files
@@ -6,7 +7,7 @@ exports.imageUpload = async (req, res, next) => {
     try {
         const newFiles = await Promise.all(files.map(file => {
             const mimetype = file.originalname.split(".").pop()
-            return new MediaModel({
+            return new Media({
                 filename: file?.originalname,
                 mimetype: mimetype,
                 name: file.filename

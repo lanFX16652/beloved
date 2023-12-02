@@ -1,6 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainLayout from './UI/MainLayout';
+import Login from './pages/Login/Login';
+import AuthWrapper from './components/AuthWrapper';
 
 function App() {
   const onSelectFiles = (event) => {
@@ -9,7 +13,10 @@ function App() {
     if (!selectedFile) return;
 
     const formData = new FormData();
-    formData.append("image", selectedFile);
+    // formData.append("image", selectedFile);
+    for (const file of event.target.files) {
+      formData.append("image", file)
+    }
     axios.post("http://localhost:5000/upload", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -26,9 +33,18 @@ function App() {
   }
 
   return (
-    <div>
-      <input type="file" onChange={onSelectFiles} />
-    </div>
+    // <div>
+    //   <input type="file" multiple onChange={onSelectFiles} />
+    // </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AuthWrapper />}>
+          <Route path="/" element={<MainLayout />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
