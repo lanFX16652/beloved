@@ -13,6 +13,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static("app/upload"));
 
 // Init Router
 app.use(authRoute);

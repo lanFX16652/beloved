@@ -1,0 +1,13 @@
+.navbar-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.navbar-wrapper span {
+  margin: 1rem;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: space-between;
+}

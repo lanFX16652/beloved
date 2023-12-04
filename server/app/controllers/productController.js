@@ -17,7 +17,7 @@ exports.addNewProduct = async (req, res, next) => {
             }
         })
         console.log("images:", images)
-        const imageUrl = images.map((image) => `http://localhost:5000/upload/${image.name}`)
+        const imageUrl = images.map((image) => `http://localhost:5000/${image.name}`)
 
         //create product
         const newProduct = new Product({
@@ -34,5 +34,26 @@ exports.addNewProduct = async (req, res, next) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: "Server error" })
+    }
+}
+
+exports.getProducts = async (req, res, next) => {
+    const { page, limit, search } = req.query;
+
+    const findOptions = search ? {
+        name: {
+            $regex: search,
+            $options: "i"
+        }
+    } : {}
+
+    try {
+        const products = await Product.find(findOptions).skip((page - 1) * limit).limit(limit)
+        const totalProducts = await Product.count(findOptions)
+        const totalPage = totalProducts / +limit
+
+        return res.json({ products, totalProducts, totalPage, page })
+    } catch (error) {
+        console.log(error)
     }
 }
