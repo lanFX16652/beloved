@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
 exports.authMiddleware = (req, res, next) => {
     // lấy token ra từ header

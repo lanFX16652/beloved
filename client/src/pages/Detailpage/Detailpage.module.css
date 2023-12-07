@@ -1,0 +1,17 @@
+.detailpage-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.image {
+  width: 50vh;
+}
+
+.qty-group {
+  justify-content: center;
+  display: flex;
+  gap: 8px;
+}
+
+.quantity {
+  line-height: 32px;
+}

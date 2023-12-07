@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
-import { Layout, Space, Menu } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { Layout, Space, Menu, Badge } from "antd";
 import classes from "./MainLayout.module.css";
+import { setUser } from "../store/userSlice";
+import { selectQtyCartItem, getCart } from "../store/cartSlice";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 const { Header, Footer, Content } = Layout;
 
 const headerStyle = {
@@ -15,16 +19,10 @@ const headerStyle = {
 const contentStyle = {
   // textAlign: "center",
   minHeight: 120,
-  lineHeight: "120px",
   color: "black",
   // backgroundColor: "#108ee9",
 };
-const siderStyle = {
-  textAlign: "center",
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#3ba0e9",
-};
+
 const footerStyle = {
   textAlign: "center",
   color: "#fff",
@@ -32,6 +30,20 @@ const footerStyle = {
 };
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const cartQuantity = useSelector(selectQtyCartItem);
+  console.log("11", cartQuantity);
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      dispatch(setUser(user));
+      dispatch(getCart());
+    }
+  }, [user]);
+
   return (
     <Space
       direction="vertical"
@@ -43,24 +55,37 @@ const MainLayout = () => {
       <Layout>
         <Header style={headerStyle}>
           <div className={classes["navbar-wrapper"]}>
-            <div>
+            <Space size={24}>
               <NavLink to="/">
                 <span>Home</span>
               </NavLink>
               <NavLink to="/shoppage">
                 <span>Shop</span>
               </NavLink>
-            </div>
+            </Space>
 
             <div>
               <span>Boutique</span>
             </div>
 
-            <div>
-              <NavLink to="/login">
-                <span>Login</span>
+            <Space size={24}>
+              <NavLink to="/cartpage">
+                <Badge count={cartQuantity}>
+                  <span>
+                    <ShoppingCartOutlined />
+                  </span>
+                </Badge>
               </NavLink>
-            </div>
+              {user ? (
+                <NavLink to="/logout">
+                  <span>Logout</span>
+                </NavLink>
+              ) : (
+                <NavLink to="/login">
+                  <span>Login</span>
+                </NavLink>
+              )}
+            </Space>
           </div>
         </Header>
         <Content style={contentStyle}>

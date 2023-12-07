@@ -1,9 +1,11 @@
 import React from "react";
 import classes from "./Homepage.module.css";
 import { Col, Divider, Row, Card } from "antd";
+import { useNavigate } from "react-router-dom";
 const { Meta } = Card;
 
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className={classes.banner}>

@@ -57,3 +57,15 @@ exports.getProducts = async (req, res, next) => {
         console.log(error)
     }
 }
+
+exports.getProductDetail = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const productId = req.body.productId;
+        const productDetail = await Product.findById(productId);
+        return res.status(200).json({ productDetail: productDetail })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Server Error" });
+    }
+}

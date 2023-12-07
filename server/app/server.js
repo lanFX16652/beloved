@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const authRoute = require("./routes/auth.js");
 const mediaRoute = require("./routes/media.js");
 const productRoute = require("./routes/product.js");
+const cartRoute = require("./routes/cart.js");
+const orderRoute = require("./routes/order.js");
 
 dotenv.config()
 const app = express();
@@ -19,6 +21,8 @@ app.use(express.static("app/upload"));
 app.use(authRoute);
 app.use(mediaRoute);
 app.use(productRoute);
+app.use(cartRoute);
+app.use(orderRoute);
 
 mongoose.connect("mongodb://127.0.0.1:27017/preloved")
     .then((result) => console.log("Database connected"))
